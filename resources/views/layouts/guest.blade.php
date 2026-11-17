@@ -14,16 +14,17 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/" wire:navigate>
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+    <body class="font-sans text-slate-900 antialiased">
+        <div class="min-h-screen bg-slate-50 px-4 py-8 sm:px-6 lg:flex lg:items-center lg:justify-center lg:py-12">
+            <div class="w-full max-w-6xl">
+                <a href="/" wire:navigate class="mb-6 inline-flex items-center gap-3 text-slate-900">
+                    <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-700 text-lg font-bold text-white">H</span>
+                    <span class="text-lg font-bold tracking-tight">HealthRisk AI</span>
                 </a>
-            </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
+                <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-slate-200/60">
+                    {{ $slot }}
+                </div>
             </div>
         </div>
     </body>

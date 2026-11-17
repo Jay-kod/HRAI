@@ -24,48 +24,60 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form wire:submit="login">
-        <!-- Email Address -->
+<div class="grid lg:grid-cols-[1.05fr_1fr]">
+    <section class="hidden bg-indigo-800 p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input wire:model="form.email" id="email" class="block mt-1 w-full" type="email" name="email" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">Personal preventive care</p>
+            <h1 class="mt-6 text-4xl font-bold leading-tight">Make your next health decision more informed.</h1>
+            <p class="mt-5 text-lg leading-8 text-indigo-100">HealthRisk AI turns your check-in information into clear educational screening estimates and practical next steps.</p>
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input wire:model="form.password" id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+        <div class="space-y-4 text-base text-indigo-100">
+            <p class="flex gap-3"><span aria-hidden="true">✓</span> Guided four-stage check-in</p>
+            <p class="flex gap-3"><span aria-hidden="true">✓</span> Explainable risk factors</p>
+            <p class="flex gap-3"><span aria-hidden="true">✓</span> Goals and progress tracking</p>
         </div>
+    </section>
 
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember" class="inline-flex items-center">
-                <input wire:model="form.remember" id="remember" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
+    <section class="p-6 sm:p-10 lg:p-12">
+        <div class="mx-auto max-w-md">
+            <div class="mb-8">
+                <p class="text-sm font-semibold uppercase tracking-widest text-indigo-700">Welcome back</p>
+                <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Sign in to your account</h2>
+                <p class="mt-3 text-base leading-6 text-slate-600">Continue your health screening journey securely.</p>
+            </div>
+
+            <x-auth-session-status class="mb-5" :status="session('status')" />
+
+            <form wire:submit="login" class="space-y-5">
+                <div>
+                    <x-input-label for="email" :value="__('Email address')" />
+                    <x-text-input wire:model="form.email" id="email" class="mt-2 block w-full rounded-lg" type="email" name="email" required autofocus autocomplete="username" />
+                    <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
+                </div>
+
+                <div>
+                    <div class="flex items-center justify-between">
+                        <x-input-label for="password" :value="__('Password')" />
+                        @if (Route::has('password.request'))
+                            <a class="text-sm font-medium text-indigo-700 hover:text-indigo-900" href="{{ route('password.request') }}" wire:navigate>Forgot password?</a>
+                        @endif
+                    </div>
+                    <x-text-input wire:model="form.password" id="password" class="mt-2 block w-full rounded-lg" type="password" name="password" required autocomplete="current-password" />
+                    <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
+                </div>
+
+                <label for="remember" class="flex items-center gap-3 text-base text-slate-600">
+                    <input wire:model="form.remember" id="remember" type="checkbox" class="rounded border-slate-300 text-indigo-700 shadow-sm focus:ring-indigo-500" name="remember">
+                    Remember me on this device
+                </label>
+
+                <x-primary-button class="w-full justify-center rounded-lg bg-indigo-700 py-3 text-sm hover:bg-indigo-800">
+                    {{ __('Sign in') }}
+                </x-primary-button>
+            </form>
+
+            <p class="mt-8 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-indigo-700 hover:text-indigo-900">Create an account</a></p>
+            <p class="mt-6 text-center text-sm leading-5 text-slate-500">Educational screening only — not a medical diagnosis.</p>
         </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
+    </section>
 </div>
