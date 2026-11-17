@@ -17,7 +17,7 @@ class CheckInTest extends TestCase
         $user = User::factory()->create();
 
         $this->actingAs($user)
-            ->get('/check-in')
+            ->get('/user/check-in')
             ->assertOk()
             ->assertSee('Measurements')
             ->assertSee('Lifestyle')

@@ -10,12 +10,12 @@ Laravel uses a five-second timeout and one short retry. Connection failures, tim
 
 ## Web routes
 
-- `/`, `/register`, `/login`, `/logout`
-- `/profile`
-- `/dashboard`
-- `/check-in`
+- `/`, `/user/register`, `/user/login`, `/user/forgot-password`, `/user/reset-password/{token}`, `/logout`
+- `/user/profile`
+- `/user/dashboard`
+- `/user/check-in`
 - `/assessments/{assessment}`
-- `/history`
+- `/user/history`
 - `/reports/{assessment}`
 - `/shared/{token}`
 - `/admin/*`
