@@ -19,6 +19,7 @@
             <nav class="mt-2 space-y-1">
                 <a href="{{ route('dashboard') }}" wire:navigate class="block rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white">Dashboard</a>
                 <a href="{{ route('history') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">History</a>
+                <a href="{{ route('profile') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Profile</a>
                 <a href="{{ route('check-in') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Check-ins</a>
             </nav>
             <p class="mt-6 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Preventive care</p>

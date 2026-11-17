@@ -22,15 +22,7 @@ new class extends Component
 <?php layout('layouts.app'); ?>
 
 <div class="min-h-screen bg-slate-950 lg:grid lg:grid-cols-[210px_1fr]">
-<aside class="hidden border-r border-white/10 bg-slate-900 p-4 lg:flex lg:flex-col">
-    <a href="{{ route('admin.model-performance') }}" wire:navigate class="flex items-center gap-2 px-2 text-sm font-bold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-300 text-sm font-black text-slate-950">H</span> HealthRisk AI</a>
-    <p class="mt-8 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Administration</p>
-    <nav class="mt-2 space-y-1">
-        <a href="{{ route('admin.model-performance') }}" wire:navigate class="block rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white">Model performance</a>
-        <a href="{{ route('dashboard') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">User dashboard</a>
-    </nav>
-    <div class="mt-auto rounded-lg border border-amber-300/20 bg-amber-300/5 p-3"><p class="text-[10px] font-bold uppercase tracking-widest text-amber-300">Restricted access</p><p class="mt-2 text-xs leading-5 text-slate-400">Authorised administrator workspace.</p></div>
-</aside>
+<x-admin.sidebar active="model" />
 <main class="min-w-0">
 <div class="border-b border-white/10 bg-slate-900/70 px-4 py-3 sm:px-6 lg:px-8"><p class="text-sm font-semibold text-slate-300">Admin dashboard</p></div>
 <div class="mx-auto max-w-[1500px] space-y-4 px-4 py-6 sm:px-6 lg:px-8">

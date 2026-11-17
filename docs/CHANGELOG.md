@@ -26,3 +26,4 @@
 - Reworked dashboard structure to mirror the reference layout with a persistent sidebar, workspace header, four KPI cards, a dominant screening-trend panel, and three lower information panels.
 - Removed the shared bottom disclaimer footer from user and administrator dashboard views to keep the analytics workspace clean.
 - Added a HealthRisk AI SVG favicon, global skeleton-style Livewire loading cards, logout confirmation modal, and goal-abandonment confirmation modal.
+- Added the admin overview, model, template, rule, feedback, and user pages, shared admin sidebar navigation, and user assessment/report URL aliases.
