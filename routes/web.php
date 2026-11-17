@@ -7,14 +7,14 @@ Route::view('/', 'welcome');
 
 Route::prefix('user')->group(function (): void {
     Route::view('dashboard', 'dashboard')
-        ->middleware(['auth', 'verified', 'user'])
+        ->middleware(['auth', 'verified', 'user', 'no-cache'])
         ->name('dashboard');
 
     Route::view('profile', 'profile')
-        ->middleware(['auth', 'user'])
+        ->middleware(['auth', 'user', 'no-cache'])
         ->name('profile');
 
-    Route::middleware(['auth', 'verified', 'user'])->group(function (): void {
+    Route::middleware(['auth', 'verified', 'user', 'no-cache'])->group(function (): void {
         Volt::route('check-in', 'pages.check-in')->name('check-in');
         Volt::route('assessments/{assessment}', 'pages.assessments.show')->name('assessments.show');
         Volt::route('history', 'pages.history')->name('history');
@@ -29,7 +29,7 @@ Route::prefix('user')->group(function (): void {
 
 Volt::route('shared/{token}', 'pages.shared-report')->name('shared.show');
 
-Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function (): void {
+Route::middleware(['auth', 'verified', 'admin', 'no-cache'])->prefix('admin')->name('admin.')->group(function (): void {
     Route::view('', 'admin.overview')->name('overview');
     Volt::route('model', 'pages.admin.model-performance')->name('model');
     Volt::route('model-performance', 'pages.admin.model-performance')->name('model-performance');

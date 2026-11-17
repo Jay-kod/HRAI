@@ -130,6 +130,8 @@ class AuthenticationTest extends TestCase
         $response
             ->assertOk()
             ->assertSeeVolt('layout.navigation');
+
+        $this->assertStringContainsString('no-store', $response->headers->get('Cache-Control', ''));
     }
 
     public function test_users_can_logout(): void
@@ -147,5 +149,8 @@ class AuthenticationTest extends TestCase
             ->assertRedirect('/');
 
         $this->assertGuest();
+
+        $this->get(route('dashboard'))
+            ->assertRedirect(route('login'));
     }
 }
