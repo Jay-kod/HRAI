@@ -33,3 +33,4 @@
 - Consolidated the authenticated user shell onto one sidebar and replaced the dashboard's illustrative trend with a real Chart.js chart from recent assessments.
 - Reworked the admin overview to match the dashboard hierarchy, use real risk-distribution data, and show a safe ML offline state.
 - Simplified user and admin sidebar labels and added accessible visual icons for faster page recognition.
+- Added the admin-only AI Control Center at `/admin/ai` for local ML health, model metadata, and a documented test prediction.

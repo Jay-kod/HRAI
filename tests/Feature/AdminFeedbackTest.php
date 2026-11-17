@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Enums\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Livewire\Volt\Volt;
 use Tests\TestCase;
 
@@ -28,6 +29,29 @@ class AdminFeedbackTest extends TestCase
 
         $this->actingAs($user)
             ->get(route('admin.model-performance'))
+            ->assertForbidden();
+    }
+
+    public function test_admin_can_view_the_ai_control_center(): void
+    {
+        $admin = User::factory()->create(['role' => Role::Admin]);
+        Http::fake([
+            '*/health' => Http::response(['status' => 'ok', 'conditions' => ['heart', 'diabetes', 'hypertension'], 'synthetic' => true]),
+        ]);
+
+        $this->actingAs($admin)
+            ->get(route('admin.ai'))
+            ->assertOk()
+            ->assertSee('AI Control Center')
+            ->assertSee('Run test prediction');
+    }
+
+    public function test_regular_user_cannot_view_the_ai_control_center(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('admin.ai'))
             ->assertForbidden();
     }
 
