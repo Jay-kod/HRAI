@@ -1,5 +1,11 @@
 @props(['active' => ''])
-<aside class="hidden border-r border-white/10 bg-slate-900 p-4 lg:flex lg:flex-col">
+<div x-data="{ open: false }">
+    <button type="button" @click="open = !open" :aria-expanded="open.toString()" aria-controls="admin-sidebar" aria-label="Toggle navigation menu" class="fixed left-4 top-4 z-40 inline-flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 bg-slate-900 text-amber-300 shadow-lg shadow-black/20 hover:bg-slate-800 lg:hidden">
+        <svg x-show="!open" class="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg x-show="open" class="h-5 w-5" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m6 6 12 12M18 6 6 18"/></svg>
+    </button>
+    <div x-show="open" x-transition.opacity @click="open = false" class="fixed inset-0 z-20 bg-slate-950/70 lg:hidden" aria-hidden="true"></div>
+<aside id="admin-sidebar" x-bind:class="open ? 'flex' : 'hidden'" class="fixed inset-y-0 left-0 z-30 w-[210px] flex-col border-r border-white/10 bg-slate-900 p-4 lg:flex">
     <a href="{{ route('admin.overview') }}" wire:navigate class="flex items-center gap-2 px-2 text-sm font-bold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-300 text-sm font-black text-slate-950">H</span> HealthRisk AI</a>
     <p class="mt-8 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Administration</p>
     <nav class="mt-2 space-y-1">
@@ -13,3 +19,4 @@
     </nav>
     <a href="{{ route('admin.overview') }}" wire:navigate class="mt-auto rounded-lg border border-amber-300/20 bg-amber-300/5 p-3 text-xs text-amber-200">Admin overview &rarr;</a>
 </aside>
+</div>
