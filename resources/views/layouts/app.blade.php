@@ -26,9 +26,16 @@
             </div>
             @auth
                 @if (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
-                    <div class="hidden">
-                        <livewire:layout.navigation />
-                    </div>
+                    @if (request()->routeIs('admin.*'))
+                        <div class="hidden">
+                            <livewire:layout.navigation />
+                        </div>
+                    @else
+                        <x-user.sidebar />
+                        <div class="hidden">
+                            <livewire:layout.navigation />
+                        </div>
+                    @endif
                 @else
                     <x-user.sidebar />
                     <div class="lg:pl-[210px]">
