@@ -21,3 +21,4 @@
 - Adjusted the shared guest authentication shell to occupy at least 99vh for a fuller login-page layout.
 - Tightened desktop authentication spacing so user and administrator login content fits within one 99vh viewport without page scrolling.
 - Reduced desktop authentication typography, control heights, and vertical gaps further to keep the complete login content visible on one screen.
+- Made the desktop login and administrator forms more compact with smaller controls, headings, panels, and link spacing.
