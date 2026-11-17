@@ -55,5 +55,38 @@ const renderScreeningTrend = () => {
     trendCanvas.dataset.chartReady = 'true';
 };
 
+const renderRiskDistribution = () => {
+    const riskCanvas = document.querySelector('#risk-distribution-chart');
+
+    if (!riskCanvas || riskCanvas.dataset.chartReady) {
+        return;
+    }
+
+    new Chart(riskCanvas, {
+        type: 'doughnut',
+        data: {
+            labels: JSON.parse(riskCanvas.dataset.labels || '[]'),
+            datasets: [{
+                data: JSON.parse(riskCanvas.dataset.values || '[]'),
+                backgroundColor: ['#34d399', '#fbbf24', '#fb7185', '#a78bfa'],
+                borderColor: '#0f172a',
+                borderWidth: 4,
+            }],
+        },
+        options: {
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { position: 'bottom', labels: { color: '#cbd5e1', padding: 18 } },
+            },
+        },
+    });
+
+    riskCanvas.dataset.chartReady = 'true';
+};
+
 renderScreeningTrend();
-document.addEventListener('livewire:navigated', renderScreeningTrend);
+renderRiskDistribution();
+document.addEventListener('livewire:navigated', () => {
+    renderScreeningTrend();
+    renderRiskDistribution();
+});
