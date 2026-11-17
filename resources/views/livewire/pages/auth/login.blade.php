@@ -76,6 +76,17 @@ new #[Layout('layouts.guest')] class extends Component
                 </x-primary-button>
             </form>
 
+            <div class="mt-6 rounded-xl border border-teal-100 bg-teal-50 p-4 text-sm text-slate-700">
+                <p class="font-bold text-teal-900">Demo user account</p>
+                <dl class="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
+                    <dt class="font-medium text-slate-500">Email</dt>
+                    <dd class="font-mono text-xs">demo@example.com</dd>
+                    <dt class="font-medium text-slate-500">Password</dt>
+                    <dd class="font-mono text-xs">password</dd>
+                </dl>
+                <p class="mt-2 text-xs text-slate-500">For local demonstration only.</p>
+            </div>
+
             <p class="mt-8 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">Create an account</a></p>
             <div class="mt-8 border-t border-slate-200 pt-5 text-center">
                 <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Administrator portal</p>

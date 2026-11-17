@@ -15,3 +15,4 @@
 - Added print-friendly reports, expiring public report shares, and shared-report access tests.
 - Added admin-only Model Performance, usability feedback capture, demo accounts, and seeded demo assessment history.
 - Redesigned user login and registration with a teal onboarding experience, and added a separate slate/amber administrator login portal with role enforcement.
+- Added clearly labelled local demo credentials to the user and administrator login screens.

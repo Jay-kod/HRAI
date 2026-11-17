@@ -20,6 +20,7 @@ class AuthenticationTest extends TestCase
             ->assertOk()
             ->assertSeeVolt('pages.auth.login')
             ->assertSee('Sign in to your account')
+            ->assertSee('demo@example.com')
             ->assertSee('Educational screening only');
     }
 
@@ -46,6 +47,7 @@ class AuthenticationTest extends TestCase
             ->assertOk()
             ->assertSeeVolt('pages.auth.admin-login')
             ->assertSee('Administrator sign in')
+            ->assertSee('admin@example.com')
             ->assertSee('Restricted access');
     }
 
