@@ -15,14 +15,14 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-slate-950 text-slate-100">
             @auth
                 <livewire:layout.navigation />
             @endauth
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="bg-white shadow">
+                <header class="border-b border-white/10 bg-slate-900">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -34,7 +34,7 @@
                 {{ $slot }}
             </main>
 
-            <footer class="border-t border-gray-200 bg-white px-4 py-6 sm:px-6 lg:px-8">
+            <footer class="border-t border-white/10 bg-slate-950 px-4 py-6 text-slate-400 sm:px-6 lg:px-8">
                 <div class="mx-auto max-w-7xl">
                     <x-health-disclaimer />
                 </div>
