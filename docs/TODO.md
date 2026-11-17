@@ -21,7 +21,7 @@
 ## Phase 4 — Auth and UI foundation
 
 - [x] Add role helpers, health profile completion, ownership policies, and dashboard foundation.
-- [ ] Add assessment navigation and reusable check-in/result components.
+- [x] Add shared disclaimer, risk-level presentation, footer, and authenticated navigation components.
 
 ## Phase 5 onward
 

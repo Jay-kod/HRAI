@@ -11,9 +11,7 @@
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <h3 class="text-lg font-semibold">Welcome back, {{ auth()->user()->name }}</h3>
-                        <p class="mt-2 text-base text-gray-600">
-                            HealthRisk AI provides educational screening estimates, not a medical diagnosis.
-                        </p>
+                        <x-health-disclaimer class="mt-2" />
                     </div>
                 </div>
 

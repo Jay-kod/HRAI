@@ -31,6 +31,12 @@
             <main>
                 {{ $slot }}
             </main>
+
+            <footer class="border-t border-gray-200 bg-white px-4 py-6 sm:px-6 lg:px-8">
+                <div class="mx-auto max-w-7xl">
+                    <x-health-disclaimer />
+                </div>
+            </footer>
         </div>
     </body>
 </html>
