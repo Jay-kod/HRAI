@@ -40,11 +40,13 @@
                 {{ $slot }}
             </main>
 
-            <footer class="border-t border-white/10 bg-slate-950 px-4 py-6 text-slate-400 sm:px-6 lg:px-8">
-                <div class="mx-auto max-w-7xl">
-                    <x-health-disclaimer />
-                </div>
-            </footer>
+            @unless (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
+                <footer class="border-t border-white/10 bg-slate-950 px-4 py-6 text-slate-400 sm:px-6 lg:px-8">
+                    <div class="mx-auto max-w-7xl">
+                        <x-health-disclaimer />
+                    </div>
+                </footer>
+            @endunless
         </div>
     </body>
 </html>

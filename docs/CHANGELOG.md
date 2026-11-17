@@ -24,3 +24,4 @@
 - Made the desktop login and administrator forms more compact with smaller controls, headings, panels, and link spacing.
 - Redesigned user and administrator dashboards with a dark analytics workspace, compact KPI cards, quick actions, and teal/emerald system theming.
 - Reworked dashboard structure to mirror the reference layout with a persistent sidebar, workspace header, four KPI cards, a dominant screening-trend panel, and three lower information panels.
+- Removed the shared bottom disclaimer footer from user and administrator dashboard views to keep the analytics workspace clean.
