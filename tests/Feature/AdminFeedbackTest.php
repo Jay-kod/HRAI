@@ -57,6 +57,19 @@ class AdminFeedbackTest extends TestCase
             ->assertForbidden();
     }
 
+    public function test_admin_logout_redirects_to_admin_login(): void
+    {
+        $admin = User::factory()->create(['role' => Role::Admin]);
+
+        $this->actingAs($admin);
+
+        Volt::test('admin.logout-button')
+            ->call('logout')
+            ->assertRedirect(route('admin.login', absolute: false));
+
+        $this->assertGuest();
+    }
+
     public function test_user_can_submit_feedback(): void
     {
         $user = User::factory()->create();

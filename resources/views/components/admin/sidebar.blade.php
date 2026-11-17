@@ -17,6 +17,9 @@
         <a href="{{ route('admin.feedback') }}" wire:navigate class="{{ $active === 'feedback' ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-white' }} flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold"><svg class="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M5 5h14v10H9l-4 4V5Z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M8 9h8M8 12h5"/></svg><span>Feedback</span></a>
         <a href="{{ route('admin.users') }}" wire:navigate class="{{ $active === 'users' ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-white' }} flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-semibold"><svg class="h-4 w-4" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3" stroke-width="1.8"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M3 20a6 6 0 0 1 12 0M16 11a3 3 0 1 0 0-6M16 14a5 5 0 0 1 5 5"/></svg><span>Users</span></a>
     </nav>
-    <a href="{{ route('admin.overview') }}" wire:navigate class="mt-auto rounded-lg border border-amber-300/20 bg-amber-300/5 p-3 text-xs text-amber-200">Admin overview &rarr;</a>
+    <div class="mt-auto space-y-2">
+        <a href="{{ route('admin.overview') }}" wire:navigate class="block rounded-lg border border-amber-300/20 bg-amber-300/5 p-3 text-xs text-amber-200">Admin overview &rarr;</a>
+        <livewire:admin.logout-button />
+    </div>
 </aside>
 </div>
