@@ -24,24 +24,24 @@ new #[Layout('layouts.guest')] class extends Component
     }
 }; ?>
 
-<div class="grid lg:grid-cols-[1.05fr_1fr]">
-    <section class="hidden bg-indigo-800 p-10 text-white lg:flex lg:flex-col lg:justify-between">
+<div class="grid lg:grid-cols-[0.95fr_1.05fr]">
+    <section class="hidden bg-gradient-to-br from-teal-950 via-emerald-900 to-teal-700 p-10 text-white lg:flex lg:flex-col lg:justify-between">
         <div>
-            <p class="text-sm font-semibold uppercase tracking-[0.2em] text-indigo-200">Personal preventive care</p>
-            <h1 class="mt-6 text-4xl font-bold leading-tight">Make your next health decision more informed.</h1>
-            <p class="mt-5 text-lg leading-8 text-indigo-100">HealthRisk AI turns your check-in information into clear educational screening estimates and practical next steps.</p>
+            <span class="inline-flex rounded-full border border-teal-300/30 bg-teal-300/10 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-teal-100">For everyday users</span>
+            <h1 class="mt-6 text-4xl font-bold leading-tight">Get started with a clearer picture of your health.</h1>
+            <p class="mt-5 text-lg leading-8 text-teal-50">Your personal screening companion turns a simple check-in into understandable risk estimates and practical next steps.</p>
         </div>
-        <div class="space-y-4 text-base text-indigo-100">
-            <p class="flex gap-3"><span aria-hidden="true">✓</span> Guided four-stage check-in</p>
-            <p class="flex gap-3"><span aria-hidden="true">✓</span> Explainable risk factors</p>
-            <p class="flex gap-3"><span aria-hidden="true">✓</span> Goals and progress tracking</p>
+        <div class="space-y-4 text-base text-teal-50">
+            <p class="flex gap-3"><span class="text-teal-300" aria-hidden="true">✓</span> Guided four-stage check-in</p>
+            <p class="flex gap-3"><span class="text-teal-300" aria-hidden="true">✓</span> Explainable risk factors</p>
+            <p class="flex gap-3"><span class="text-teal-300" aria-hidden="true">✓</span> Goals and progress tracking</p>
         </div>
     </section>
 
     <section class="p-6 sm:p-10 lg:p-12">
         <div class="mx-auto max-w-md">
             <div class="mb-8">
-                <p class="text-sm font-semibold uppercase tracking-widest text-indigo-700">Welcome back</p>
+                <p class="text-sm font-semibold uppercase tracking-widest text-teal-700">User sign in</p>
                 <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Sign in to your account</h2>
                 <p class="mt-3 text-base leading-6 text-slate-600">Continue your health screening journey securely.</p>
             </div>
@@ -59,7 +59,7 @@ new #[Layout('layouts.guest')] class extends Component
                     <div class="flex items-center justify-between">
                         <x-input-label for="password" :value="__('Password')" />
                         @if (Route::has('password.request'))
-                            <a class="text-sm font-medium text-indigo-700 hover:text-indigo-900" href="{{ route('password.request') }}" wire:navigate>Forgot password?</a>
+                            <a class="text-sm font-medium text-teal-700 hover:text-teal-900" href="{{ route('password.request') }}" wire:navigate>Forgot password?</a>
                         @endif
                     </div>
                     <x-text-input wire:model="form.password" id="password" class="mt-2 block w-full rounded-lg" type="password" name="password" required autocomplete="current-password" />
@@ -67,16 +67,20 @@ new #[Layout('layouts.guest')] class extends Component
                 </div>
 
                 <label for="remember" class="flex items-center gap-3 text-base text-slate-600">
-                    <input wire:model="form.remember" id="remember" type="checkbox" class="rounded border-slate-300 text-indigo-700 shadow-sm focus:ring-indigo-500" name="remember">
+                    <input wire:model="form.remember" id="remember" type="checkbox" class="rounded border-slate-300 text-teal-700 shadow-sm focus:ring-teal-500" name="remember">
                     Remember me on this device
                 </label>
 
-                <x-primary-button class="w-full justify-center rounded-lg bg-indigo-700 py-3 text-sm hover:bg-indigo-800">
+                <x-primary-button class="w-full justify-center rounded-lg bg-teal-700 py-3 text-sm hover:bg-teal-800">
                     {{ __('Sign in') }}
                 </x-primary-button>
             </form>
 
-            <p class="mt-8 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-indigo-700 hover:text-indigo-900">Create an account</a></p>
+            <p class="mt-8 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">Create an account</a></p>
+            <div class="mt-8 border-t border-slate-200 pt-5 text-center">
+                <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Administrator portal</p>
+                <a href="{{ route('admin.login') }}" wire:navigate class="mt-2 inline-flex text-sm font-semibold text-slate-700 hover:text-slate-950">Sign in as an administrator <span aria-hidden="true">&rarr;</span></a>
+            </div>
             <p class="mt-6 text-center text-sm leading-5 text-slate-500">Educational screening only — not a medical diagnosis.</p>
         </div>
     </section>

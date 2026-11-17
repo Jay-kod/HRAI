@@ -3,6 +3,7 @@
 namespace Tests\Feature\Auth;
 
 use App\Models\User;
+use App\Enums\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
 use Tests\TestCase;
@@ -37,6 +38,46 @@ class AuthenticationTest extends TestCase
             ->assertRedirect(route('dashboard', absolute: false));
 
         $this->assertAuthenticated();
+    }
+
+    public function test_admin_login_screen_is_separate_from_user_login(): void
+    {
+        $this->get('/admin/login')
+            ->assertOk()
+            ->assertSeeVolt('pages.auth.admin-login')
+            ->assertSee('Administrator sign in')
+            ->assertSee('Restricted access');
+    }
+
+    public function test_only_admins_can_use_the_admin_login_screen(): void
+    {
+        $user = User::factory()->create();
+
+        $component = Volt::test('pages.auth.admin-login')
+            ->set('form.email', $user->email)
+            ->set('form.password', 'password');
+
+        $component->call('login');
+
+        $component->assertHasErrors(['form.email']);
+        $this->assertGuest();
+    }
+
+    public function test_admins_can_use_the_admin_login_screen(): void
+    {
+        $admin = User::factory()->create(['role' => Role::Admin]);
+
+        $component = Volt::test('pages.auth.admin-login')
+            ->set('form.email', $admin->email)
+            ->set('form.password', 'password');
+
+        $component->call('login');
+
+        $component
+            ->assertHasNoErrors()
+            ->assertRedirect(route('admin.model-performance', absolute: false));
+
+        $this->assertAuthenticatedAs($admin);
     }
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
