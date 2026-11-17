@@ -15,7 +15,8 @@
 
 ## Phase 3 — Database and domain model
 
-- [ ] Add enums, migrations, models, factories, and seeders.
+- [x] Add enums, migrations, models, and factories.
+- [x] Register empty knowledge-base and demo seeders for the next vertical slice.
 
 ## Phase 4 — Auth and UI foundation
 
