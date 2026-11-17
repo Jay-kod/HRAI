@@ -30,3 +30,4 @@
 - Added user activation controls to the admin Users page and prevented inactive accounts from signing in.
 - Added a persistent user sidebar to all authenticated user pages, with mobile fallback navigation retained.
 - Separated user and administrator workspaces with explicit role middleware; administrators cannot enter user pages and user accounts cannot enter admin pages.
+- Consolidated the authenticated user shell onto one sidebar and replaced the dashboard's illustrative trend with a real Chart.js chart from recent assessments.

@@ -5,35 +5,17 @@
         $goalCount = $user->healthGoals()->count();
         $wearableCount = $user->wearableSessions()->count();
         $latestAssessment = $user->riskAssessments()->latest('assessed_at')->first();
+        $trendAssessments = $user->riskAssessments()
+            ->latest('assessed_at')
+            ->limit(8)
+            ->get(['assessed_at', 'overall_score'])
+            ->reverse()
+            ->values();
         $profileComplete = $user->hasCompletedHealthProfile();
     @endphp
 
-    <div class="min-h-screen bg-slate-950 lg:grid lg:grid-cols-[210px_1fr]">
-        <aside class="hidden border-r border-white/10 bg-slate-900 p-4 lg:flex lg:flex-col">
-            <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-2 px-2 text-sm font-bold text-white">
-                <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-400 text-sm font-black text-slate-950">H</span>
-                HealthRisk AI
-            </a>
-            <a href="{{ route('check-in') }}" wire:navigate class="mt-6 flex items-center justify-center rounded-lg bg-teal-400 px-3 py-2 text-xs font-bold text-slate-950 hover:bg-teal-300">+ New check-in</a>
-            <p class="mt-7 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Overview</p>
-            <nav class="mt-2 space-y-1">
-                <a href="{{ route('dashboard') }}" wire:navigate class="block rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white">Dashboard</a>
-                <a href="{{ route('history') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">History</a>
-                <a href="{{ route('profile') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Profile</a>
-                <a href="{{ route('check-in') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Check-ins</a>
-            </nav>
-            <p class="mt-6 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Preventive care</p>
-            <nav class="mt-2 space-y-1">
-                <a href="{{ route('goals') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Health goals</a>
-                <a href="{{ route('wearables') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Activity data</a>
-                <a href="{{ route('feedback') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Feedback</a>
-            </nav>
-            <div class="mt-auto rounded-lg border border-teal-400/20 bg-teal-400/5 p-3">
-                <p class="text-[10px] font-bold uppercase tracking-widest text-teal-300">Screening status</p>
-                <p class="mt-2 text-xs leading-5 text-slate-400">Educational estimates for your next informed decision.</p>
-            </div>
-        </aside>
-        <main class="min-w-0">
+    <div class="min-h-screen bg-slate-950">
+        <div class="min-w-0">
         <div class="border-b border-white/10 bg-slate-900/70 px-4 py-3 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
                 <p class="text-sm font-semibold text-slate-300">Dashboard</p>
@@ -88,19 +70,24 @@
             <section class="mt-4 overflow-hidden rounded-xl border border-white/10 bg-slate-900">
                 <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
                     <div><h2 class="text-base font-bold text-white">Screening trend</h2><p class="mt-1 text-xs text-slate-400">Your overall screening score over recent check-ins.</p></div>
-                    <span class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-400">All time</span>
+                    <span class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-400">Recent check-ins</span>
                 </div>
                 <div class="relative h-48 px-5 py-5">
                     <div class="absolute inset-x-5 top-8 border-t border-dashed border-white/10"></div>
                     <div class="absolute inset-x-5 top-1/2 border-t border-dashed border-white/10"></div>
                     <div class="absolute inset-x-5 bottom-8 border-t border-dashed border-white/10"></div>
-                    <svg class="relative h-full w-full" viewBox="0 0 900 150" preserveAspectRatio="none" role="img" aria-label="Illustrative screening trend">
-                        <defs><linearGradient id="trend-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".25"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></linearGradient></defs>
-                        <path d="M0 112 C55 118 70 95 120 102 S185 110 230 84 S290 97 340 76 S405 83 455 62 S520 78 570 55 S630 68 680 46 S740 60 785 38 S850 50 900 28 L900 150 L0 150 Z" fill="url(#trend-fill)"/>
-                        <path d="M0 112 C55 118 70 95 120 102 S185 110 230 84 S290 97 340 76 S405 83 455 62 S520 78 570 55 S630 68 680 46 S740 60 785 38 S850 50 900 28" fill="none" stroke="#5eead4" stroke-linecap="round" stroke-width="3"/>
-                    </svg>
+                    @if ($trendAssessments->isNotEmpty())
+                        <canvas id="screening-trend-chart"
+                            aria-label="Overall screening score trend"
+                            data-labels="{{ $trendAssessments->map(fn ($assessment) => $assessment->assessed_at->format('j M'))->values()->toJson() }}"
+                            data-values="{{ $trendAssessments->pluck('overall_score')->values()->toJson() }}"></canvas>
+                    @else
+                        <div class="flex h-full items-center justify-center rounded-lg border border-dashed border-white/10 text-sm text-slate-500">
+                            Complete a check-in to build your screening trend.
+                        </div>
+                    @endif
                 </div>
-                <div class="flex justify-between border-t border-white/10 px-5 py-3 text-[11px] text-slate-500"><span>Earlier check-ins</span><span class="text-teal-300">View history &rarr;</span><span>Latest check-in</span></div>
+                <div class="flex justify-between border-t border-white/10 px-5 py-3 text-[11px] text-slate-500"><span>Earlier check-ins</span><a href="{{ route('history') }}" wire:navigate class="text-teal-300 hover:text-teal-200">View history &rarr;</a><span>Latest check-in</span></div>
             </section>
 
             <div class="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr_1fr]">
@@ -172,6 +159,5 @@
                 <x-health-disclaimer class="text-slate-400" />
             </div>
         </div>
-        </main>
     </div>
 </x-app-layout>

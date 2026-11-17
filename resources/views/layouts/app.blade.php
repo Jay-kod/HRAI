@@ -25,7 +25,7 @@
                 </div>
             </div>
             @auth
-                @if (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
+                @if (request()->routeIs('admin.*'))
                     <div class="hidden">
                         <livewire:layout.navigation />
                     </div>
@@ -39,7 +39,7 @@
 
             <!-- Page Heading -->
             @if (isset($header))
-                <header class="border-b border-white/10 bg-slate-900 {{ auth()->check() && ! request()->routeIs('dashboard') && ! request()->routeIs('admin.*') ? 'lg:ml-[210px]' : '' }}">
+                <header class="border-b border-white/10 bg-slate-900 {{ auth()->check() && ! request()->routeIs('admin.*') ? 'lg:ml-[210px]' : '' }}">
                     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
@@ -47,12 +47,12 @@
             @endif
 
             <!-- Page Content -->
-            <main class="{{ auth()->check() && ! request()->routeIs('dashboard') && ! request()->routeIs('admin.*') ? 'lg:ml-[210px]' : '' }}">
+            <main class="{{ auth()->check() && ! request()->routeIs('admin.*') ? 'lg:ml-[210px]' : '' }}">
                 {{ $slot }}
             </main>
 
             @unless (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
-                <footer class="border-t border-white/10 bg-slate-950 px-4 py-6 text-slate-400 sm:px-6 lg:px-8 {{ auth()->check() && ! request()->routeIs('dashboard') && ! request()->routeIs('admin.*') ? 'lg:ml-[210px]' : '' }}">
+                <footer class="border-t border-white/10 bg-slate-950 px-4 py-6 text-slate-400 sm:px-6 lg:px-8 {{ auth()->check() && ! request()->routeIs('admin.*') ? 'lg:ml-[210px]' : '' }}">
                     <div class="mx-auto max-w-7xl">
                         <x-health-disclaimer />
                     </div>
