@@ -45,9 +45,9 @@ new #[Layout('layouts.guest')] class extends Component
         </div>
     </section>
 
-    <section class="p-6 sm:p-10 lg:p-12">
+    <section class="p-6 sm:p-10 lg:p-8">
         <div class="mx-auto max-w-md">
-            <div class="mb-8">
+            <div class="mb-5">
                 <p class="text-sm font-semibold uppercase tracking-widest text-teal-700">User sign in</p>
                 <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-900">Sign in to your account</h2>
                 <p class="mt-3 text-base leading-6 text-slate-600">Continue your health screening journey securely.</p>
@@ -55,7 +55,7 @@ new #[Layout('layouts.guest')] class extends Component
 
             <x-auth-session-status class="mb-5" :status="session('status')" />
 
-            <form wire:submit="login" class="space-y-5">
+            <form wire:submit="login" class="space-y-4">
                 <div>
                     <x-input-label for="email" :value="__('Email address')" />
                     <x-text-input wire:model="form.email" id="email" class="mt-2 block w-full rounded-lg" type="email" name="email" required autofocus autocomplete="username" />
@@ -87,24 +87,24 @@ new #[Layout('layouts.guest')] class extends Component
                 </x-primary-button>
             </form>
 
-            <div class="mt-6 rounded-xl border border-teal-100 bg-teal-50 p-4">
+            <div class="mt-4 rounded-xl border border-teal-100 bg-teal-50 p-3">
                 <p class="text-sm text-slate-600">Want to preview the app?</p>
-                <button type="button" wire:click="loginAsDemo" wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-teal-200 bg-white px-4 py-3 text-sm font-bold text-teal-800 shadow-sm transition hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-md disabled:cursor-wait disabled:opacity-70">
+                <button type="button" wire:click="loginAsDemo" wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-teal-200 bg-white px-4 py-2.5 text-sm font-bold text-teal-800 shadow-sm transition hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-md disabled:cursor-wait disabled:opacity-70">
                     <span wire:loading.remove wire:target="login,loginAsDemo">Test User</span>
                     <span wire:loading wire:target="login,loginAsDemo" class="inline-flex items-center gap-2">
                         <span class="h-4 w-4 animate-spin rounded-full border-2 border-teal-300 border-t-teal-700" aria-hidden="true"></span>
                         Authenticating...
                     </span>
                 </button>
-                <p class="mt-2 text-center text-xs text-slate-500">Uses the seeded local demo account.</p>
+                <p class="mt-1 text-center text-xs text-slate-500">Uses the seeded local demo account.</p>
             </div>
 
-            <p class="mt-8 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">Create an account</a></p>
-            <div class="mt-8 border-t border-slate-200 pt-5 text-center">
+            <p class="mt-5 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">Create an account</a></p>
+            <div class="mt-5 border-t border-slate-200 pt-3 text-center">
                 <p class="text-xs font-bold uppercase tracking-widest text-slate-400">Administrator portal</p>
                 <a href="{{ route('admin.login') }}" wire:navigate class="mt-2 inline-flex text-sm font-semibold text-slate-700 hover:text-slate-950">Sign in as an administrator <span aria-hidden="true">&rarr;</span></a>
             </div>
-            <p class="mt-6 text-center text-sm leading-5 text-slate-500">Educational screening only — not a medical diagnosis.</p>
+            <p class="mt-4 text-center text-sm leading-5 text-slate-500">Educational screening only — not a medical diagnosis.</p>
         </div>
     </section>
 </div>

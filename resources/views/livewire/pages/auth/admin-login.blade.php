@@ -46,9 +46,9 @@ new #[Layout('layouts.guest')] class extends Component
         <p class="text-sm text-slate-400">Administrator access is limited to authorised project operators.</p>
     </section>
 
-    <section class="bg-white p-6 sm:p-10 lg:p-12">
+    <section class="bg-white p-6 sm:p-10 lg:p-8">
         <div class="mx-auto max-w-md">
-            <div class="mb-8">
+            <div class="mb-5">
                 <p class="text-sm font-semibold uppercase tracking-widest text-amber-700">Administrator sign in</p>
                 <h2 class="mt-2 text-3xl font-bold tracking-tight text-slate-950">Welcome to the control centre</h2>
                 <p class="mt-3 text-base leading-6 text-slate-600">Use your authorised administrator account to continue.</p>
@@ -56,7 +56,7 @@ new #[Layout('layouts.guest')] class extends Component
 
             <x-auth-session-status class="mb-5" :status="session('status')" />
 
-            <form wire:submit="login" class="space-y-5">
+            <form wire:submit="login" class="space-y-4">
                 <div>
                     <x-input-label for="admin-email" :value="__('Administrator email')" />
                     <x-text-input wire:model="form.email" id="admin-email" class="mt-2 block w-full rounded-lg" type="email" name="email" required autofocus autocomplete="username" />
@@ -80,19 +80,19 @@ new #[Layout('layouts.guest')] class extends Component
                 </x-primary-button>
             </form>
 
-            <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4">
+            <div class="mt-4 rounded-xl border border-amber-200 bg-amber-50 p-3">
                 <p class="text-sm text-slate-600">Need to review the system demo?</p>
-                <button type="button" wire:click="loginAsDemo" wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-300 bg-white px-4 py-3 text-sm font-bold text-amber-900 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md disabled:cursor-wait disabled:opacity-70">
+                <button type="button" wire:click="loginAsDemo" wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-300 bg-white px-4 py-2.5 text-sm font-bold text-amber-900 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md disabled:cursor-wait disabled:opacity-70">
                     <span wire:loading.remove wire:target="login,loginAsDemo">Test Administrator</span>
                     <span wire:loading wire:target="login,loginAsDemo" class="inline-flex items-center gap-2">
                         <span class="h-4 w-4 animate-spin rounded-full border-2 border-amber-300 border-t-amber-800" aria-hidden="true"></span>
                         Authenticating...
                     </span>
                 </button>
-                <p class="mt-2 text-center text-xs text-slate-500">Uses the seeded local administrator account.</p>
+                <p class="mt-1 text-center text-xs text-slate-500">Uses the seeded local administrator account.</p>
             </div>
 
-            <p class="mt-8 text-center text-base text-slate-600">Looking for the user area? <a href="{{ route('login') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">User sign in</a></p>
+            <p class="mt-5 text-center text-base text-slate-600">Looking for the user area? <a href="{{ route('login') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">User sign in</a></p>
         </div>
     </section>
 </div>
