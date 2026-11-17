@@ -8,7 +8,37 @@
         $profileComplete = $user->hasCompletedHealthProfile();
     @endphp
 
-    <div class="min-h-[calc(100vh-4rem)] bg-slate-950">
+    <div class="min-h-screen bg-slate-950 lg:grid lg:grid-cols-[210px_1fr]">
+        <aside class="hidden border-r border-white/10 bg-slate-900 p-4 lg:flex lg:flex-col">
+            <a href="{{ route('dashboard') }}" wire:navigate class="flex items-center gap-2 px-2 text-sm font-bold text-white">
+                <span class="flex h-7 w-7 items-center justify-center rounded-lg bg-teal-400 text-sm font-black text-slate-950">H</span>
+                HealthRisk AI
+            </a>
+            <a href="{{ route('check-in') }}" wire:navigate class="mt-6 flex items-center justify-center rounded-lg bg-teal-400 px-3 py-2 text-xs font-bold text-slate-950 hover:bg-teal-300">+ New check-in</a>
+            <p class="mt-7 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Overview</p>
+            <nav class="mt-2 space-y-1">
+                <a href="{{ route('dashboard') }}" wire:navigate class="block rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white">Dashboard</a>
+                <a href="{{ route('history') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">History</a>
+                <a href="{{ route('check-in') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Check-ins</a>
+            </nav>
+            <p class="mt-6 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Preventive care</p>
+            <nav class="mt-2 space-y-1">
+                <a href="{{ route('goals') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Health goals</a>
+                <a href="{{ route('wearables') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Activity data</a>
+                <a href="{{ route('feedback') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">Feedback</a>
+            </nav>
+            <div class="mt-auto rounded-lg border border-teal-400/20 bg-teal-400/5 p-3">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-teal-300">Screening status</p>
+                <p class="mt-2 text-xs leading-5 text-slate-400">Educational estimates for your next informed decision.</p>
+            </div>
+        </aside>
+        <main class="min-w-0">
+        <div class="border-b border-white/10 bg-slate-900/70 px-4 py-3 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <p class="text-sm font-semibold text-slate-300">Dashboard</p>
+                <a href="{{ route('profile') }}" wire:navigate class="flex items-center gap-2 text-xs text-slate-400 hover:text-white"><span class="flex h-7 w-7 items-center justify-center rounded-full bg-teal-400 font-bold text-slate-950">{{ strtoupper(substr($user->name, 0, 1)) }}</span>{{ $user->name }}</a>
+            </div>
+        </div>
         <div class="mx-auto max-w-[1500px] px-4 py-6 sm:px-6 lg:px-8">
             <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
                 <div>
@@ -54,7 +84,25 @@
                 </div>
             @endunless
 
-            <div class="mt-4 grid gap-4 lg:grid-cols-[1.7fr_1fr]">
+            <section class="mt-4 overflow-hidden rounded-xl border border-white/10 bg-slate-900">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
+                    <div><h2 class="text-base font-bold text-white">Screening trend</h2><p class="mt-1 text-xs text-slate-400">Your overall screening score over recent check-ins.</p></div>
+                    <span class="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-slate-400">All time</span>
+                </div>
+                <div class="relative h-48 px-5 py-5">
+                    <div class="absolute inset-x-5 top-8 border-t border-dashed border-white/10"></div>
+                    <div class="absolute inset-x-5 top-1/2 border-t border-dashed border-white/10"></div>
+                    <div class="absolute inset-x-5 bottom-8 border-t border-dashed border-white/10"></div>
+                    <svg class="relative h-full w-full" viewBox="0 0 900 150" preserveAspectRatio="none" role="img" aria-label="Illustrative screening trend">
+                        <defs><linearGradient id="trend-fill" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#2dd4bf" stop-opacity=".25"/><stop offset="1" stop-color="#2dd4bf" stop-opacity="0"/></linearGradient></defs>
+                        <path d="M0 112 C55 118 70 95 120 102 S185 110 230 84 S290 97 340 76 S405 83 455 62 S520 78 570 55 S630 68 680 46 S740 60 785 38 S850 50 900 28 L900 150 L0 150 Z" fill="url(#trend-fill)"/>
+                        <path d="M0 112 C55 118 70 95 120 102 S185 110 230 84 S290 97 340 76 S405 83 455 62 S520 78 570 55 S630 68 680 46 S740 60 785 38 S850 50 900 28" fill="none" stroke="#5eead4" stroke-linecap="round" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="flex justify-between border-t border-white/10 px-5 py-3 text-[11px] text-slate-500"><span>Earlier check-ins</span><span class="text-teal-300">View history &rarr;</span><span>Latest check-in</span></div>
+            </section>
+
+            <div class="mt-4 grid gap-4 lg:grid-cols-[1.35fr_1fr_1fr]">
                 <section class="overflow-hidden rounded-xl border border-white/10 bg-slate-900">
                     <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4">
                         <div>
@@ -87,6 +135,18 @@
 
                 <section class="rounded-xl border border-white/10 bg-slate-900">
                     <div class="border-b border-white/10 px-5 py-4">
+                        <h2 class="text-base font-bold text-white">Activity data</h2>
+                        <p class="mt-1 text-xs text-slate-400">Recent wearable sessions.</p>
+                    </div>
+                    <div class="p-5">
+                        <p class="text-4xl font-bold text-white">{{ $wearableCount }}</p>
+                        <p class="mt-2 text-xs text-slate-500">sessions recorded</p>
+                        <a href="{{ route('wearables') }}" wire:navigate class="mt-5 inline-flex text-sm font-semibold text-teal-300 hover:text-teal-200">View activity data &rarr;</a>
+                    </div>
+                </section>
+
+                <section class="rounded-xl border border-white/10 bg-slate-900">
+                    <div class="border-b border-white/10 px-5 py-4">
                         <h2 class="text-base font-bold text-white">Quick actions</h2>
                         <p class="mt-1 text-xs text-slate-400">Shortcuts to useful parts of your workspace.</p>
                     </div>
@@ -111,5 +171,6 @@
                 <x-health-disclaimer class="text-slate-400" />
             </div>
         </div>
+        </main>
     </div>
 </x-app-layout>

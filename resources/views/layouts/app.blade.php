@@ -17,7 +17,13 @@
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-slate-950 text-slate-100">
             @auth
+                @if (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
+                    <div class="hidden">
+                        <livewire:layout.navigation />
+                    </div>
+                @else
                 <livewire:layout.navigation />
+                @endif
             @endauth
 
             <!-- Page Heading -->

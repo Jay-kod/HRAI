@@ -21,7 +21,18 @@ new class extends Component
 
 <?php layout('layouts.app'); ?>
 
-<div class="min-h-[calc(100vh-4rem)] bg-slate-950">
+<div class="min-h-screen bg-slate-950 lg:grid lg:grid-cols-[210px_1fr]">
+<aside class="hidden border-r border-white/10 bg-slate-900 p-4 lg:flex lg:flex-col">
+    <a href="{{ route('admin.model-performance') }}" wire:navigate class="flex items-center gap-2 px-2 text-sm font-bold text-white"><span class="flex h-7 w-7 items-center justify-center rounded-lg bg-amber-300 text-sm font-black text-slate-950">H</span> HealthRisk AI</a>
+    <p class="mt-8 px-2 text-[10px] font-bold uppercase tracking-widest text-slate-500">Administration</p>
+    <nav class="mt-2 space-y-1">
+        <a href="{{ route('admin.model-performance') }}" wire:navigate class="block rounded-lg bg-white/10 px-3 py-2 text-sm font-semibold text-white">Model performance</a>
+        <a href="{{ route('dashboard') }}" wire:navigate class="block rounded-lg px-3 py-2 text-sm text-slate-400 hover:bg-white/5 hover:text-white">User dashboard</a>
+    </nav>
+    <div class="mt-auto rounded-lg border border-amber-300/20 bg-amber-300/5 p-3"><p class="text-[10px] font-bold uppercase tracking-widest text-amber-300">Restricted access</p><p class="mt-2 text-xs leading-5 text-slate-400">Authorised administrator workspace.</p></div>
+</aside>
+<main class="min-w-0">
+<div class="border-b border-white/10 bg-slate-900/70 px-4 py-3 sm:px-6 lg:px-8"><p class="text-sm font-semibold text-slate-300">Admin dashboard</p></div>
 <div class="mx-auto max-w-[1500px] space-y-4 px-4 py-6 sm:px-6 lg:px-8">
     <div><p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">Administrator workspace</p><h2 class="mt-2 text-3xl font-bold text-white">Model Performance</h2><p class="mt-1 text-sm text-slate-400">Training and comparison metrics for the served screening models.</p></div>
     <div class="grid gap-3 md:grid-cols-3"><div class="rounded-xl border border-white/10 bg-slate-900 p-4 shadow-lg"><p class="text-xs text-slate-400">Dataset size</p><p class="mt-2 text-2xl font-bold text-white">{{ number_format($metrics['dataset_size'] ?? 0) }}</p></div><div class="rounded-xl border border-white/10 bg-slate-900 p-4 shadow-lg"><p class="text-xs text-slate-400">Training date</p><p class="mt-2 text-2xl font-bold text-white">{{ $metrics['training_date'] ?? 'Unknown' }}</p></div><div class="rounded-xl border border-white/10 bg-slate-900 p-4 shadow-lg"><p class="text-xs text-slate-400">Data mode</p><p class="mt-2 text-2xl font-bold text-amber-300">{{ ($metrics['synthetic'] ?? false) ? 'Synthetic demo' : 'Reference data' }}</p></div></div>
@@ -29,4 +40,5 @@ new class extends Component
         <section class="overflow-hidden rounded-xl border border-white/10 bg-slate-900 shadow-lg"><div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 px-5 py-4"><h3 class="text-lg font-bold capitalize text-white">{{ $condition }}</h3><span class="rounded-full bg-teal-400/10 px-3 py-1 text-xs font-semibold text-teal-300">Served: {{ str_replace('_', ' ', $data['served_model']) }}</span></div><div class="overflow-x-auto p-5"><table class="min-w-full text-left text-sm"><thead class="border-b border-white/10 text-xs uppercase tracking-wide text-slate-500"><tr><th class="py-2 pr-6">Model</th><th class="py-2 pr-6">ROC AUC</th><th class="py-2 pr-6">PR AUC</th><th class="py-2 pr-6">F1</th><th class="py-2">Recall</th></tr></thead><tbody class="text-slate-300">@foreach ($data['models'] as $model => $scores)<tr class="border-b border-white/10 last:border-0"><td class="py-3 pr-6 font-medium text-white">{{ str_replace('_', ' ', $model) }}</td><td class="py-3 pr-6">{{ number_format($scores['roc_auc'], 3) }}</td><td class="py-3 pr-6">{{ number_format($scores['pr_auc'], 3) }}</td><td class="py-3 pr-6">{{ number_format($scores['f1'], 3) }}</td><td class="py-3">{{ number_format($scores['recall'], 3) }}</td></tr>@endforeach</tbody></table></div></section>
     @endforeach
 </div>
+</main>
 </div>
