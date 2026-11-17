@@ -25,7 +25,11 @@ class RiskAssessmentFactory extends Factory
             'engine' => 'hybrid',
             'overall_score' => 22.5,
             'overall_level' => 'low',
-            'condition_results' => ['heart' => ['score' => 20, 'level' => 'low']],
+            'condition_results' => [
+                'heart' => ['probability' => 0.2, 'percentile' => 20, 'level' => 'low', 'served_model' => 'rule-based-fallback'],
+                'diabetes' => ['probability' => 0.15, 'percentile' => 15, 'level' => 'low', 'served_model' => 'rule-based-fallback'],
+                'hypertension' => ['probability' => 0.25, 'percentile' => 25, 'level' => 'low', 'served_model' => 'rule-based-fallback'],
+            ],
             'risk_factors' => [],
             'assessed_at' => now(),
         ];

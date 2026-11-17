@@ -10,3 +10,4 @@
 - Added Phase 4 profile completion fields, role helpers, ownership policies, dashboard status cards, and authorization coverage.
 - Added reusable disclaimer and risk-level components plus consistent authenticated footer and role navigation.
 - Added seeded baseline risk rules and recommendation templates, feature mapping, ML client fallback, rule engine, recommendation generation, and assessment action.
+- Added the four-stage check-in, persisted assessment result view, assessment history, navigation links, and UI tests.

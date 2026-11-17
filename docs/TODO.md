@@ -27,7 +27,7 @@
 
 - [x] Seed baseline knowledge-base rules and recommendation templates.
 - [x] Implement the assessment action, feature mapping, ML client, and rule-based fallback.
-- [ ] Add check-in form, assessment result, and history pages.
+- [x] Add validated four-stage check-in, assessment result, and history pages.
 - [ ] Implement assessment pipeline and fallback.
 - [ ] Implement check-in and result pages.
 - [ ] Implement dashboard and history.
