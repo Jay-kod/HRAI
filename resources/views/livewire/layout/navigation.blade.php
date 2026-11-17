@@ -5,6 +5,18 @@ use Livewire\Volt\Component;
 
 new class extends Component
 {
+    public bool $confirmingLogout = false;
+
+    public function confirmLogout(): void
+    {
+        $this->confirmingLogout = true;
+    }
+
+    public function cancelLogout(): void
+    {
+        $this->confirmingLogout = false;
+    }
+
     /**
      * Log the current user out of the application.
      */
@@ -78,7 +90,7 @@ new class extends Component
                         </x-dropdown-link>
 
                         <!-- Authentication -->
-                        <button wire:click="logout" class="w-full text-start">
+                        <button wire:click="confirmLogout" class="w-full text-start">
                             <x-dropdown-link>
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
@@ -141,7 +153,7 @@ new class extends Component
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
-                <button wire:click="logout" class="w-full text-start">
+                <button wire:click="confirmLogout" class="w-full text-start">
                     <x-responsive-nav-link>
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
@@ -149,4 +161,20 @@ new class extends Component
             </div>
         </div>
     </div>
+
+    @if ($confirmingLogout)
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="logout-title">
+            <div class="w-full max-w-sm rounded-2xl border border-white/10 bg-slate-900 p-6 shadow-2xl">
+                <div class="flex h-11 w-11 items-center justify-center rounded-full bg-amber-400/10 text-amber-300" aria-hidden="true">!</div>
+                <h2 id="logout-title" class="mt-4 text-lg font-bold text-white">Sign out of HealthRisk AI?</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-400">Your saved screening history remains secure. You can sign back in whenever you are ready.</p>
+                <div class="mt-6 flex justify-end gap-3">
+                    <button type="button" wire:click="cancelLogout" class="rounded-lg border border-white/10 px-4 py-2 text-sm font-semibold text-slate-300 hover:bg-white/5">Stay signed in</button>
+                    <button type="button" wire:click="logout" wire:loading.attr="disabled" class="rounded-lg bg-rose-500 px-4 py-2 text-sm font-bold text-white hover:bg-rose-400 disabled:opacity-60">
+                        <span wire:loading.remove>Sign out</span><span wire:loading>Signing out...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    @endif
 </nav>

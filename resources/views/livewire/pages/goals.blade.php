@@ -11,6 +11,7 @@ new class extends Component
     public string $metric = 'weight_kg';
     public ?float $target = null;
     public ?float $start_value = null;
+    public ?int $confirmingGoalId = null;
 
     public function createGoal(CreateHealthGoal $createHealthGoal): void
     {
@@ -30,6 +31,27 @@ new class extends Component
         $goal = Auth::user()->healthGoals()->findOrFail($goalId);
         $this->authorize('update', $goal);
         $goal->update(['status' => 'abandoned', 'abandoned_at' => now()]);
+    }
+
+    public function confirmAbandon(int $goalId): void
+    {
+        $this->confirmingGoalId = $goalId;
+    }
+
+    public function cancelAbandon(): void
+    {
+        $this->confirmingGoalId = null;
+    }
+
+    public function abandonConfirmed(): void
+    {
+        if ($this->confirmingGoalId === null) {
+            return;
+        }
+
+        $goalId = $this->confirmingGoalId;
+        $this->confirmingGoalId = null;
+        $this->abandon($goalId);
     }
 
     public function with(): array
@@ -69,7 +91,7 @@ new class extends Component
                         <span class="text-sm font-medium uppercase text-gray-600">{{ $goal->status->value }}</span>
                     </div>
                     @if ($goal->status->value === 'active')
-                        <button wire:click="abandon({{ $goal->id }})" class="mt-3 text-sm font-medium text-red-700 underline">Abandon goal</button>
+                        <button wire:click="confirmAbandon({{ $goal->id }})" class="mt-3 text-sm font-medium text-red-700 underline">Abandon goal</button>
                     @endif
                 </article>
             @empty
@@ -78,4 +100,18 @@ new class extends Component
         </section>
     </div>
     <x-health-disclaimer />
+
+    @if ($confirmingGoalId !== null)
+        <div class="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="abandon-goal-title">
+            <div class="w-full max-w-sm rounded-2xl border border-rose-200 bg-white p-6 shadow-2xl">
+                <div class="flex h-11 w-11 items-center justify-center rounded-full bg-rose-100 text-rose-700" aria-hidden="true">!</div>
+                <h2 id="abandon-goal-title" class="mt-4 text-lg font-bold text-slate-900">Abandon this goal?</h2>
+                <p class="mt-2 text-sm leading-6 text-slate-600">This will mark the goal as abandoned. You can create a new goal later.</p>
+                <div class="mt-6 flex justify-end gap-3">
+                    <button type="button" wire:click="cancelAbandon" class="rounded-lg border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-600 hover:bg-slate-50">Keep goal</button>
+                    <button type="button" wire:click="abandonConfirmed" wire:loading.attr="disabled" class="rounded-lg bg-rose-600 px-4 py-2 text-sm font-bold text-white hover:bg-rose-700 disabled:opacity-60"><span wire:loading.remove>Abandon goal</span><span wire:loading>Updating...</span></button>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>

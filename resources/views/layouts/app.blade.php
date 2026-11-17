@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="icon" type="image/svg+xml" href="{{ asset('favicon.svg') }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
 
@@ -16,6 +17,13 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-slate-950 text-slate-100">
+            <div wire:loading.flex class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/70 px-4 backdrop-blur-sm">
+                <div class="w-full max-w-xs rounded-2xl border border-teal-300/20 bg-slate-900 p-5 text-center shadow-2xl">
+                    <div class="mx-auto flex h-10 w-10 animate-pulse items-center justify-center rounded-xl bg-teal-400 text-lg font-black text-slate-950">H</div>
+                    <p class="mt-3 text-sm font-semibold text-white">Loading your workspace</p>
+                    <div class="mt-3 space-y-2" aria-hidden="true"><div class="h-2 animate-pulse rounded bg-white/10"></div><div class="h-2 w-2/3 animate-pulse rounded bg-white/10"></div></div>
+                </div>
+            </div>
             @auth
                 @if (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
                     <div class="hidden">
