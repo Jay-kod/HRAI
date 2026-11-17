@@ -28,10 +28,11 @@
 - [x] Seed baseline knowledge-base rules and recommendation templates.
 - [x] Implement the assessment action, feature mapping, ML client, and rule-based fallback.
 - [x] Add validated four-stage check-in, assessment result, and history pages.
-- [ ] Implement assessment pipeline and fallback.
-- [ ] Implement check-in and result pages.
+- [x] Implement assessment pipeline and fallback.
+- [x] Implement check-in and result pages.
 - [x] Implement dashboard latest-result and activity summary.
 - [x] Implement goals and wearable simulation.
 - [x] Implement print-friendly reports and expiring shared reports.
-- [ ] Implement admin and feedback.
+- [x] Seed demo accounts and representative assessment history.
+- [x] Implement admin Model Performance and usability feedback.
 - [ ] Complete smoke testing and defence packaging.

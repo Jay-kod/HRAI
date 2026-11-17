@@ -45,6 +45,14 @@ new class extends Component
                     <x-nav-link :href="route('wearables')" :active="request()->routeIs('wearables')" wire:navigate>
                         {{ __('Wearables') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('feedback')" :active="request()->routeIs('feedback')" wire:navigate>
+                        {{ __('Feedback') }}
+                    </x-nav-link>
+                    @if (auth()->user()->isAdmin())
+                        <x-nav-link :href="route('admin.model-performance')" :active="request()->routeIs('admin.*')" wire:navigate>
+                            {{ __('Admin') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -109,6 +117,14 @@ new class extends Component
             <x-responsive-nav-link :href="route('wearables')" :active="request()->routeIs('wearables')" wire:navigate>
                 {{ __('Wearables') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('feedback')" :active="request()->routeIs('feedback')" wire:navigate>
+                {{ __('Feedback') }}
+            </x-responsive-nav-link>
+            @if (auth()->user()->isAdmin())
+                <x-responsive-nav-link :href="route('admin.model-performance')" :active="request()->routeIs('admin.*')" wire:navigate>
+                    {{ __('Admin') }}
+                </x-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->

@@ -13,3 +13,4 @@
 - Added the four-stage check-in, persisted assessment result view, assessment history, navigation links, and UI tests.
 - Added health goal creation, simulated wearable sessions, and dashboard latest-result/activity summaries.
 - Added print-friendly reports, expiring public report shares, and shared-report access tests.
+- Added admin-only Model Performance, usability feedback capture, demo accounts, and seeded demo assessment history.
