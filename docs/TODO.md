@@ -9,9 +9,9 @@
 
 ## Phase 2 — Machine-learning service
 
-- [ ] Add training script and synthetic fallback.
-- [ ] Add FastAPI health and prediction endpoints.
-- [ ] Add ML artifacts and pytest coverage.
+- [x] Add training script and synthetic fallback.
+- [x] Add FastAPI health and prediction endpoints.
+- [x] Add ML artifacts and pytest coverage.
 
 ## Phase 3 — Database and domain model
 

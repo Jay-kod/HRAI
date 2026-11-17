@@ -1,0 +1,124 @@
+{
+  "dataset_size": 2500,
+  "training_date": "2026-11-17",
+  "synthetic": true,
+  "conditions": {
+    "heart": {
+      "served_model": "logistic_regression",
+      "models": {
+        "random_forest": {
+          "roc_auc": 0.5548,
+          "pr_auc": 0.3426,
+          "precision": 0.3797,
+          "recall": 0.2143,
+          "f1": 0.274,
+          "confusion_matrix": [
+            [
+              311,
+              49
+            ],
+            [
+              110,
+              30
+            ]
+          ]
+        },
+        "logistic_regression": {
+          "roc_auc": 0.5674,
+          "pr_auc": 0.3808,
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "confusion_matrix": [
+            [
+              360,
+              0
+            ],
+            [
+              140,
+              0
+            ]
+          ]
+        }
+      }
+    },
+    "diabetes": {
+      "served_model": "random_forest",
+      "models": {
+        "random_forest": {
+          "roc_auc": 1.0,
+          "pr_auc": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "confusion_matrix": [
+            [
+              392,
+              0
+            ],
+            [
+              0,
+              108
+            ]
+          ]
+        },
+        "logistic_regression": {
+          "roc_auc": 1.0,
+          "pr_auc": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "confusion_matrix": [
+            [
+              392,
+              0
+            ],
+            [
+              0,
+              108
+            ]
+          ]
+        }
+      }
+    },
+    "hypertension": {
+      "served_model": "random_forest",
+      "models": {
+        "random_forest": {
+          "roc_auc": 1.0,
+          "pr_auc": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "confusion_matrix": [
+            [
+              319,
+              0
+            ],
+            [
+              0,
+              181
+            ]
+          ]
+        },
+        "logistic_regression": {
+          "roc_auc": 1.0,
+          "pr_auc": 1.0,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0,
+          "confusion_matrix": [
+            [
+              319,
+              0
+            ],
+            [
+              0,
+              181
+            ]
+          ]
+        }
+      }
+    }
+  }
+}
