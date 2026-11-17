@@ -9,6 +9,30 @@ use Illuminate\Support\Facades\Http;
 class MlControlService
 {
     /**
+     * @return array{source: string, available: bool, rows: int, synthetic: bool, trained_at: string, features: array<int, string>, note: string}
+     */
+    public function datasetSummary(): array
+    {
+        $datasetPath = base_path('ml/data/heart_disease_health_indicators_BRFSS2015.csv');
+        $metricsPath = base_path('ml/artifacts/metrics.json');
+        $metadataPath = base_path('ml/artifacts/model_meta.json');
+        $metrics = is_file($metricsPath) ? json_decode(file_get_contents($metricsPath), true) : [];
+        $metadata = is_file($metadataPath) ? json_decode(file_get_contents($metadataPath), true) : [];
+
+        return [
+            'source' => 'BRFSS 2015 Heart Disease Health Indicators',
+            'available' => is_file($datasetPath),
+            'rows' => (int) ($metrics['dataset_size'] ?? 0),
+            'synthetic' => (bool) ($metrics['synthetic'] ?? $metadata['synthetic'] ?? false),
+            'trained_at' => (string) ($metrics['training_date'] ?? 'Unknown'),
+            'features' => is_array($metadata['features'] ?? null) ? $metadata['features'] : [],
+            'note' => is_file($datasetPath)
+                ? 'The documented source CSV is available for a future training update.'
+                : 'The raw source CSV is not present. Current model artifacts were trained from the labelled synthetic fallback.',
+        ];
+    }
+
+    /**
      * @return array{online: bool, message: string, payload: array<string, mixed>}
      */
     public function health(): array

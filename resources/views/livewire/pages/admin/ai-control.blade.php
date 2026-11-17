@@ -8,6 +8,7 @@ use function Livewire\Volt\layout;
 new class extends Component
 {
     public array $health = [];
+    public array $dataset = [];
     public ?array $prediction = null;
     public bool $testing = false;
 
@@ -15,11 +16,13 @@ new class extends Component
     {
         abort_unless(Auth::user()->isAdmin(), 403);
         $this->health = $service->health();
+        $this->dataset = $service->datasetSummary();
     }
 
     public function refreshHealth(MlControlService $service): void
     {
         $this->health = $service->health();
+        $this->dataset = $service->datasetSummary();
         $this->prediction = null;
     }
 
@@ -74,6 +77,20 @@ new class extends Component
                     @endif
                 </section>
             </div>
+
+            <section class="rounded-xl border border-white/10 bg-slate-900 p-5">
+                <div class="flex flex-wrap items-start justify-between gap-4">
+                    <div><p class="text-xs font-bold uppercase tracking-widest text-amber-300">Training data</p><h2 class="mt-2 text-xl font-bold text-white">Dataset overview</h2><p class="mt-1 text-sm text-slate-400">Inspect the data currently represented by the trained artifacts before improving or updating the model.</p></div>
+                    <span class="rounded-full {{ $dataset['synthetic'] ?? false ? 'bg-amber-300/15 text-amber-200' : 'bg-teal-400/15 text-teal-200' }} px-3 py-1 text-xs font-bold">{{ ($dataset['synthetic'] ?? false) ? 'SYNTHETIC FALLBACK' : 'REFERENCE DATA' }}</span>
+                </div>
+                <div class="mt-5 grid gap-3 sm:grid-cols-3">
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3"><p class="text-xs text-slate-500">Source</p><p class="mt-2 text-sm font-semibold text-slate-200">{{ $dataset['source'] ?? 'Unknown' }}</p></div>
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3"><p class="text-xs text-slate-500">Rows used for training</p><p class="mt-2 text-xl font-bold text-white">{{ number_format($dataset['rows'] ?? 0) }}</p></div>
+                    <div class="rounded-lg border border-white/10 bg-white/5 p-3"><p class="text-xs text-slate-500">Last training date</p><p class="mt-2 text-sm font-semibold text-slate-200">{{ $dataset['trained_at'] ?? 'Unknown' }}</p></div>
+                </div>
+                <p class="mt-4 rounded-lg border border-amber-300/20 bg-amber-300/5 p-3 text-sm text-amber-100/80">{{ $dataset['note'] ?? 'Dataset status is unavailable.' }}</p>
+                <div class="mt-4"><p class="text-xs font-bold uppercase tracking-widest text-slate-500">Model features</p><div class="mt-2 flex flex-wrap gap-2">@foreach ($dataset['features'] ?? [] as $feature)<span class="rounded-md bg-white/5 px-2 py-1 font-mono text-xs text-slate-300">{{ $feature }}</span>@endforeach</div></div>
+            </section>
 
             <div class="rounded-xl border border-amber-300/20 bg-amber-300/5 p-5 text-sm text-amber-100/80">The application uses this local model for educational screening estimates. If the service is unavailable, the assessment pipeline automatically uses its documented rule-based fallback. This page does not expose credentials or allow arbitrary model changes.</div>
         </div>

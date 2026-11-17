@@ -43,6 +43,8 @@ class AdminFeedbackTest extends TestCase
             ->get(route('admin.ai'))
             ->assertOk()
             ->assertSee('AI Control Center')
+            ->assertSee('Dataset overview')
+            ->assertSee('Model features')
             ->assertSee('Run test prediction');
     }
 

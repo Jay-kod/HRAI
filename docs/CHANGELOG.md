@@ -34,6 +34,7 @@
 - Reworked the admin overview to match the dashboard hierarchy, use real risk-distribution data, and show a safe ML offline state.
 - Simplified user and admin sidebar labels and added accessible visual icons for faster page recognition.
 - Added the admin-only AI Control Center at `/admin/ai` for local ML health, model metadata, and a documented test prediction.
+- Added dataset inspection to the AI Control Center, including source availability, training rows, synthetic-data status, training date, and model features.
 - Hid the duplicate top navigation bar from the user dashboard so the dashboard sidebar is the only primary navigation shell.
 - Added responsive hamburger controls and dismissible overlays for both user and admin sidebars.
 - Removed the duplicate New check-in button from the user sidebar.
