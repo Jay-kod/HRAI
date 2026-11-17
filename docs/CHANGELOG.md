@@ -18,3 +18,4 @@
 - Added clearly labelled local demo credentials to the user and administrator login screens.
 - Replaced visible demo credentials with one-click Test User and Test Administrator login buttons, including loading and authentication animations.
 - Namespaced canonical URLs so user authentication and application pages use `/user/...`, while administrator pages use `/admin/...`.
+- Adjusted the shared guest authentication shell to occupy at least 99vh for a fuller login-page layout.

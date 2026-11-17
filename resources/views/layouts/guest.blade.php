@@ -15,7 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans text-slate-900 antialiased">
-        <div class="min-h-screen bg-slate-950 px-4 py-6 sm:px-6 lg:flex lg:items-center lg:justify-center lg:py-10">
+        <div class="min-h-[99vh] bg-slate-950 px-4 py-6 sm:px-6 lg:flex lg:items-center lg:justify-center lg:py-5">
             <div class="w-full max-w-6xl">
                 <a href="/" wire:navigate class="mb-5 inline-flex items-center gap-3 text-white">
                     <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-teal-400 text-lg font-bold text-slate-950">H</span>
