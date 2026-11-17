@@ -11,3 +11,4 @@
 - Added reusable disclaimer and risk-level components plus consistent authenticated footer and role navigation.
 - Added seeded baseline risk rules and recommendation templates, feature mapping, ML client fallback, rule engine, recommendation generation, and assessment action.
 - Added the four-stage check-in, persisted assessment result view, assessment history, navigation links, and UI tests.
+- Added health goal creation, simulated wearable sessions, and dashboard latest-result/activity summaries.

@@ -17,6 +17,8 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Volt::route('check-in', 'pages.check-in')->name('check-in');
     Volt::route('assessments/{assessment}', 'pages.assessments.show')->name('assessments.show');
     Volt::route('history', 'pages.history')->name('history');
+    Volt::route('goals', 'pages.goals')->name('goals');
+    Volt::route('wearables', 'pages.wearables')->name('wearables');
 });
 
 require __DIR__.'/auth.php';

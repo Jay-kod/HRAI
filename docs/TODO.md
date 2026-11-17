@@ -30,8 +30,8 @@
 - [x] Add validated four-stage check-in, assessment result, and history pages.
 - [ ] Implement assessment pipeline and fallback.
 - [ ] Implement check-in and result pages.
-- [ ] Implement dashboard and history.
-- [ ] Implement goals and wearables.
+- [x] Implement dashboard latest-result and activity summary.
+- [x] Implement goals and wearable simulation.
 - [ ] Implement reports and sharing.
 - [ ] Implement admin and feedback.
 - [ ] Complete smoke testing and defence packaging.

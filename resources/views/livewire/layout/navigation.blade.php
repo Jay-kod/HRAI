@@ -39,6 +39,12 @@ new class extends Component
                     <x-nav-link :href="route('history')" :active="request()->routeIs('history')" wire:navigate>
                         {{ __('History') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('goals')" :active="request()->routeIs('goals')" wire:navigate>
+                        {{ __('Goals') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('wearables')" :active="request()->routeIs('wearables')" wire:navigate>
+                        {{ __('Wearables') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -96,6 +102,12 @@ new class extends Component
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('history')" :active="request()->routeIs('history')" wire:navigate>
                 {{ __('History') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('goals')" :active="request()->routeIs('goals')" wire:navigate>
+                {{ __('Goals') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('wearables')" :active="request()->routeIs('wearables')" wire:navigate>
+                {{ __('Wearables') }}
             </x-responsive-nav-link>
         </div>
 
