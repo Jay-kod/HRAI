@@ -25,7 +25,7 @@
                 </div>
             </div>
             @auth
-                @if (request()->routeIs('admin.*'))
+                @if (request()->routeIs('dashboard') || request()->routeIs('admin.*'))
                     <div class="hidden">
                         <livewire:layout.navigation />
                     </div>
