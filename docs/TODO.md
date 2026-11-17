@@ -32,6 +32,6 @@
 - [ ] Implement check-in and result pages.
 - [x] Implement dashboard latest-result and activity summary.
 - [x] Implement goals and wearable simulation.
-- [ ] Implement reports and sharing.
+- [x] Implement print-friendly reports and expiring shared reports.
 - [ ] Implement admin and feedback.
 - [ ] Complete smoke testing and defence packaging.

@@ -19,6 +19,9 @@ Route::middleware(['auth', 'verified'])->group(function (): void {
     Volt::route('history', 'pages.history')->name('history');
     Volt::route('goals', 'pages.goals')->name('goals');
     Volt::route('wearables', 'pages.wearables')->name('wearables');
+    Volt::route('reports/{assessment}', 'pages.reports.show')->name('reports.show');
 });
+
+Volt::route('shared/{token}', 'pages.shared-report')->name('shared.show');
 
 require __DIR__.'/auth.php';
