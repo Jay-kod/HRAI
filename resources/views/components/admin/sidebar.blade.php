@@ -10,5 +10,5 @@
         <a href="{{ route('admin.feedback') }}" wire:navigate class="{{ $active === 'feedback' ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-white' }} block rounded-lg px-3 py-2 text-sm font-semibold">Usability feedback</a>
         <a href="{{ route('admin.users') }}" wire:navigate class="{{ $active === 'users' ? 'bg-white/10 text-white' : 'text-slate-400 hover:bg-white/5 hover:text-white' }} block rounded-lg px-3 py-2 text-sm font-semibold">Users</a>
     </nav>
-    <a href="{{ route('dashboard') }}" wire:navigate class="mt-auto rounded-lg border border-amber-300/20 bg-amber-300/5 p-3 text-xs text-amber-200">Open user dashboard &rarr;</a>
+    <a href="{{ route('admin.overview') }}" wire:navigate class="mt-auto rounded-lg border border-amber-300/20 bg-amber-300/5 p-3 text-xs text-amber-200">Admin overview &rarr;</a>
 </aside>

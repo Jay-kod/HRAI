@@ -84,6 +84,24 @@ class AuthenticationTest extends TestCase
         $this->assertAuthenticatedAs($admin);
     }
 
+    public function test_admin_cannot_enter_the_user_workspace(): void
+    {
+        $admin = User::factory()->create(['role' => Role::Admin]);
+
+        $this->actingAs($admin)
+            ->get(route('dashboard'))
+            ->assertForbidden();
+    }
+
+    public function test_regular_user_cannot_enter_the_admin_workspace(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user)
+            ->get(route('admin.overview'))
+            ->assertForbidden();
+    }
+
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
         $user = User::factory()->create();

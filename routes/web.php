@@ -7,14 +7,14 @@ Route::view('/', 'welcome');
 
 Route::prefix('user')->group(function (): void {
     Route::view('dashboard', 'dashboard')
-        ->middleware(['auth', 'verified'])
+        ->middleware(['auth', 'verified', 'user'])
         ->name('dashboard');
 
     Route::view('profile', 'profile')
-        ->middleware(['auth'])
+        ->middleware(['auth', 'user'])
         ->name('profile');
 
-    Route::middleware(['auth', 'verified'])->group(function (): void {
+    Route::middleware(['auth', 'verified', 'user'])->group(function (): void {
         Volt::route('check-in', 'pages.check-in')->name('check-in');
         Volt::route('assessments/{assessment}', 'pages.assessments.show')->name('assessments.show');
         Volt::route('history', 'pages.history')->name('history');
