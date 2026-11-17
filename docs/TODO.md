@@ -25,7 +25,9 @@
 
 ## Phase 5 onward
 
-- [ ] Seed knowledge base and demo accounts.
+- [x] Seed baseline knowledge-base rules and recommendation templates.
+- [x] Implement the assessment action, feature mapping, ML client, and rule-based fallback.
+- [ ] Add check-in form, assessment result, and history pages.
 - [ ] Implement assessment pipeline and fallback.
 - [ ] Implement check-in and result pages.
 - [ ] Implement dashboard and history.
