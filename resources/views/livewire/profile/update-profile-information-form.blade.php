@@ -5,11 +5,15 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
 use Livewire\Volt\Component;
+use App\Enums\Gender;
 
 new class extends Component
 {
     public string $name = '';
     public string $email = '';
+    public ?string $date_of_birth = null;
+    public ?string $gender = null;
+    public ?string $contact = null;
 
     /**
      * Mount the component.
@@ -18,6 +22,9 @@ new class extends Component
     {
         $this->name = Auth::user()->name;
         $this->email = Auth::user()->email;
+        $this->date_of_birth = Auth::user()->date_of_birth?->format('Y-m-d');
+        $this->gender = Auth::user()->gender?->value;
+        $this->contact = Auth::user()->contact;
     }
 
     /**
@@ -30,6 +37,9 @@ new class extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'date_of_birth' => ['required', 'date', 'before_or_equal:'.now()->subYears(18)->toDateString()],
+            'gender' => ['required', Rule::enum(Gender::class)],
+            'contact' => ['required', 'string', 'max:255'],
         ]);
 
         $user->fill($validated);
@@ -100,6 +110,31 @@ new class extends Component
                             {{ __('A new verification link has been sent to your email address.') }}
                         </p>
                     @endif
+                </div>
+
+                <div class="grid gap-6 sm:grid-cols-2">
+                    <div>
+                        <x-input-label for="date_of_birth" :value="__('Date of birth')" />
+                        <x-text-input wire:model="date_of_birth" id="date_of_birth" name="date_of_birth" type="date" class="mt-1 block w-full" required />
+                        <x-input-error class="mt-2" :messages="$errors->get('date_of_birth')" />
+                    </div>
+
+                    <div>
+                        <x-input-label for="gender" :value="__('Gender')" />
+                        <select wire:model="gender" id="gender" name="gender" class="mt-1 block w-full border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm" required>
+                            <option value="">Select gender</option>
+                            @foreach (Gender::cases() as $option)
+                                <option value="{{ $option->value }}">{{ ucfirst($option->value) }}</option>
+                            @endforeach
+                        </select>
+                        <x-input-error class="mt-2" :messages="$errors->get('gender')" />
+                    </div>
+                </div>
+
+                <div>
+                    <x-input-label for="contact" :value="__('Contact number')" />
+                    <x-text-input wire:model="contact" id="contact" name="contact" type="text" class="mt-1 block w-full" required autocomplete="tel" />
+                    <x-input-error class="mt-2" :messages="$errors->get('contact')" />
                 </div>
             @endif
         </div>

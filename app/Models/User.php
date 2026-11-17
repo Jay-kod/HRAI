@@ -77,4 +77,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(UsabilityFeedback::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === Role::Admin;
+    }
+
+    public function isProvider(): bool
+    {
+        return $this->role === Role::Provider;
+    }
+
+    public function hasCompletedHealthProfile(): bool
+    {
+        return $this->date_of_birth !== null && $this->gender !== null && filled($this->contact);
+    }
 }

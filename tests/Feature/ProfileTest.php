@@ -64,6 +64,27 @@ class ProfileTest extends TestCase
         $this->assertNotNull($user->refresh()->email_verified_at);
     }
 
+    public function test_health_profile_information_can_be_saved(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user);
+
+        Volt::test('profile.update-profile-information-form')
+            ->set('date_of_birth', '1990-01-15')
+            ->set('gender', 'female')
+            ->set('contact', '+1 555 0100')
+            ->call('updateProfileInformation')
+            ->assertHasNoErrors();
+
+        $user->refresh();
+
+        $this->assertSame('1990-01-15', $user->date_of_birth->format('Y-m-d'));
+        $this->assertSame('female', $user->gender->value);
+        $this->assertSame('+1 555 0100', $user->contact);
+        $this->assertTrue($user->hasCompletedHealthProfile());
+    }
+
     public function test_user_can_delete_their_account(): void
     {
         $user = User::factory()->create();
