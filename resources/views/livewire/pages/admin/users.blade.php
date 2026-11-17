@@ -1,0 +1,23 @@
+<?php
+
+use App\Models\User;
+use Livewire\Volt\Component;
+use function Livewire\Volt\layout;
+
+new class extends Component
+{
+    public function toggle(int $id): void
+    {
+        $user = User::findOrFail($id);
+        abort_if($user->isAdmin() && $user->id === auth()->id(), 422, 'You cannot deactivate your own administrator account.');
+        $user->update(['active' => ! $user->active]);
+    }
+
+    public function with(): array
+    {
+        return ['users' => User::withCount(['riskAssessments', 'healthGoals'])->latest()->get()];
+    }
+}; ?>
+
+<?php layout('layouts.app'); ?>
+<div class="min-h-screen bg-slate-950 lg:grid lg:grid-cols-[210px_1fr]"><x-admin.sidebar active="users" /><main class="min-w-0"><div class="border-b border-white/10 bg-slate-900/70 px-4 py-3 sm:px-6 lg:px-8"><p class="text-sm font-semibold text-slate-300">Users</p></div><div class="mx-auto max-w-[1200px] space-y-5 px-4 py-6 sm:px-6 lg:px-8"><div><p class="text-xs font-bold uppercase tracking-[0.2em] text-amber-300">Account management</p><h1 class="mt-2 text-3xl font-bold text-white">Users</h1><p class="mt-1 text-sm text-slate-400">Review and manage registered accounts.</p></div><section class="overflow-x-auto rounded-xl border border-white/10 bg-slate-900"><table class="min-w-full text-left text-sm"><thead class="border-b border-white/10 text-xs uppercase tracking-wide text-slate-500"><tr><th class="px-5 py-3">User</th><th class="px-5 py-3">Role</th><th class="px-5 py-3">Assessments</th><th class="px-5 py-3">Goals</th><th class="px-5 py-3">Status</th><th class="px-5 py-3"></th></tr></thead><tbody class="divide-y divide-white/10 text-slate-300">@foreach ($users as $user)<tr><td class="px-5 py-4"><p class="font-semibold text-white">{{ $user->name }}</p><p class="text-xs text-slate-500">{{ $user->email }}</p></td><td class="px-5 py-4"><span class="rounded-full bg-teal-400/10 px-2 py-1 text-xs text-teal-300">{{ $user->role->value }}</span></td><td class="px-5 py-4">{{ $user->risk_assessments_count }}</td><td class="px-5 py-4">{{ $user->health_goals_count }}</td><td class="px-5 py-4"><span class="{{ $user->active ? 'text-teal-300' : 'text-rose-300' }}">{{ $user->active ? 'Active' : 'Inactive' }}</span></td><td class="px-5 py-4 text-right">@if ($user->id !== auth()->id())<button wire:click="toggle({{ $user->id }})" class="text-xs font-semibold text-amber-300 hover:text-amber-200">{{ $user->active ? 'Deactivate' : 'Activate' }}</button>@endif</td></tr>@endforeach</tbody></table></section></div></main></div>

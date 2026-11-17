@@ -24,6 +24,7 @@ class User extends Authenticatable
         'date_of_birth',
         'gender',
         'contact',
+        'active',
     ];
 
     /**
@@ -40,6 +41,7 @@ class User extends Authenticatable
             'role' => Role::class,
             'gender' => Gender::class,
             'contact' => 'encrypted',
+            'active' => 'boolean',
         ];
     }
 

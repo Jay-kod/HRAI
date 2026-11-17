@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Volt::route('templates', 'pages.admin.templates')->name('templates');
     Volt::route('rules', 'pages.admin.rules')->name('rules');
     Route::view('feedback', 'admin.feedback')->name('feedback');
-    Route::view('users', 'admin.users')->name('users');
+    Volt::route('users', 'pages.admin.users')->name('users');
 });
 
 require __DIR__.'/auth.php';
