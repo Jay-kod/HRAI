@@ -20,6 +20,7 @@
 /public/storage
 /ml/data
 /ml/.venv
+/ml/**/__pycache__/
 /storage/*.key
 /storage/pail
 /vendor
