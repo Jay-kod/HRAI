@@ -22,6 +22,13 @@ new #[Layout('layouts.guest')] class extends Component
 
         $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
     }
+
+    public function loginAsDemo(): void
+    {
+        $this->form->email = 'demo@example.com';
+        $this->form->password = 'password';
+        $this->login();
+    }
 }; ?>
 
 <div class="grid lg:grid-cols-[0.95fr_1.05fr]">
@@ -71,20 +78,25 @@ new #[Layout('layouts.guest')] class extends Component
                     Remember me on this device
                 </label>
 
-                <x-primary-button class="w-full justify-center rounded-lg bg-teal-700 py-3 text-sm hover:bg-teal-800">
-                    {{ __('Sign in') }}
+                <x-primary-button wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="w-full justify-center rounded-lg bg-teal-700 py-3 text-sm hover:bg-teal-800 disabled:cursor-wait disabled:opacity-70">
+                    <span wire:loading.remove wire:target="login,loginAsDemo">{{ __('Sign in') }}</span>
+                    <span wire:loading wire:target="login,loginAsDemo" class="inline-flex items-center gap-2">
+                        <span class="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true"></span>
+                        Authenticating...
+                    </span>
                 </x-primary-button>
             </form>
 
-            <div class="mt-6 rounded-xl border border-teal-100 bg-teal-50 p-4 text-sm text-slate-700">
-                <p class="font-bold text-teal-900">Demo user account</p>
-                <dl class="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
-                    <dt class="font-medium text-slate-500">Email</dt>
-                    <dd class="font-mono text-xs">demo@example.com</dd>
-                    <dt class="font-medium text-slate-500">Password</dt>
-                    <dd class="font-mono text-xs">password</dd>
-                </dl>
-                <p class="mt-2 text-xs text-slate-500">For local demonstration only.</p>
+            <div class="mt-6 rounded-xl border border-teal-100 bg-teal-50 p-4">
+                <p class="text-sm text-slate-600">Want to preview the app?</p>
+                <button type="button" wire:click="loginAsDemo" wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-teal-200 bg-white px-4 py-3 text-sm font-bold text-teal-800 shadow-sm transition hover:-translate-y-0.5 hover:border-teal-300 hover:shadow-md disabled:cursor-wait disabled:opacity-70">
+                    <span wire:loading.remove wire:target="login,loginAsDemo">Test User</span>
+                    <span wire:loading wire:target="login,loginAsDemo" class="inline-flex items-center gap-2">
+                        <span class="h-4 w-4 animate-spin rounded-full border-2 border-teal-300 border-t-teal-700" aria-hidden="true"></span>
+                        Authenticating...
+                    </span>
+                </button>
+                <p class="mt-2 text-center text-xs text-slate-500">Uses the seeded local demo account.</p>
             </div>
 
             <p class="mt-8 text-center text-base text-slate-600">New to HealthRisk AI? <a href="{{ route('register') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">Create an account</a></p>

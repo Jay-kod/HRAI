@@ -27,6 +27,13 @@ new #[Layout('layouts.guest')] class extends Component
         Session::regenerate();
         $this->redirectIntended(default: route('admin.model-performance', absolute: false), navigate: true);
     }
+
+    public function loginAsDemo(): void
+    {
+        $this->form->email = 'admin@example.com';
+        $this->form->password = 'password';
+        $this->login();
+    }
 }; ?>
 
 <div class="grid bg-slate-950 lg:grid-cols-[0.95fr_1.05fr]">
@@ -64,18 +71,25 @@ new #[Layout('layouts.guest')] class extends Component
                     <input wire:model="form.remember" id="admin-remember" type="checkbox" class="rounded border-slate-300 text-amber-700 shadow-sm focus:ring-amber-500" name="remember">
                     Remember me on this device
                 </label>
-                <x-primary-button class="w-full justify-center rounded-lg bg-slate-950 py-3 text-sm hover:bg-slate-800">{{ __('Enter admin centre') }}</x-primary-button>
+                <x-primary-button wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="w-full justify-center rounded-lg bg-slate-950 py-3 text-sm hover:bg-slate-800 disabled:cursor-wait disabled:opacity-70">
+                    <span wire:loading.remove wire:target="login,loginAsDemo">{{ __('Enter admin centre') }}</span>
+                    <span wire:loading wire:target="login,loginAsDemo" class="inline-flex items-center gap-2">
+                        <span class="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white" aria-hidden="true"></span>
+                        Authenticating...
+                    </span>
+                </x-primary-button>
             </form>
 
-            <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-slate-700">
-                <p class="font-bold text-amber-900">Demo administrator account</p>
-                <dl class="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1">
-                    <dt class="font-medium text-slate-500">Email</dt>
-                    <dd class="font-mono text-xs">admin@example.com</dd>
-                    <dt class="font-medium text-slate-500">Password</dt>
-                    <dd class="font-mono text-xs">password</dd>
-                </dl>
-                <p class="mt-2 text-xs text-slate-500">For local demonstration only.</p>
+            <div class="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4">
+                <p class="text-sm text-slate-600">Need to review the system demo?</p>
+                <button type="button" wire:click="loginAsDemo" wire:loading.attr="disabled" wire:target="login,loginAsDemo" class="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-amber-300 bg-white px-4 py-3 text-sm font-bold text-amber-900 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-400 hover:shadow-md disabled:cursor-wait disabled:opacity-70">
+                    <span wire:loading.remove wire:target="login,loginAsDemo">Test Administrator</span>
+                    <span wire:loading wire:target="login,loginAsDemo" class="inline-flex items-center gap-2">
+                        <span class="h-4 w-4 animate-spin rounded-full border-2 border-amber-300 border-t-amber-800" aria-hidden="true"></span>
+                        Authenticating...
+                    </span>
+                </button>
+                <p class="mt-2 text-center text-xs text-slate-500">Uses the seeded local administrator account.</p>
             </div>
 
             <p class="mt-8 text-center text-base text-slate-600">Looking for the user area? <a href="{{ route('login') }}" wire:navigate class="font-semibold text-teal-700 hover:text-teal-900">User sign in</a></p>
