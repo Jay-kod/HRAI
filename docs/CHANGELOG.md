@@ -32,3 +32,4 @@
 - Separated user and administrator workspaces with explicit role middleware; administrators cannot enter user pages and user accounts cannot enter admin pages.
 - Consolidated the authenticated user shell onto one sidebar and replaced the dashboard's illustrative trend with a real Chart.js chart from recent assessments.
 - Reworked the admin overview to match the dashboard hierarchy, use real risk-distribution data, and show a safe ML offline state.
+- Simplified user and admin sidebar labels and added accessible visual icons for faster page recognition.
